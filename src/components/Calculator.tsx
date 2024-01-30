@@ -56,38 +56,38 @@ export default function Calculator({
   }
 
   return (
-    <>
-      <h2 id="title">Delivery Fee Calculator</h2>
+    <div className="calculator-wrapper">
       <form aria-labelledby="title" onSubmit={(e) => e.preventDefault()}>
+        <h2 id="title">Delivery Fee Calculator</h2>
         <div className="field-wrapper">
           <label id="cart-value-label" htmlFor="cart-value">
-            Cart Value:
+            Cart Value (in Euros):
           </label>
           <input
             data-testid="cartValue"
             aria-labelledby="cart-value-label"
             id="cart-value"
             type="number"
+            min="0"
             value={cartValue}
             onChange={(e) => onCartValueChange(parseFloat(e.target.value))}
           />{" "}
-          &euro;
         </div>
         <div className="field-wrapper">
           <label id="delivery-distance-label" htmlFor="delivery-distance">
-            Delivery Distance:
+            Delivery Distance (in meters):
           </label>
           <input
             data-testid="deliveryDistance"
             aria-labelledby="delivery-distance-label"
             id="delivery-distance"
             type="number"
+            min="0"
             value={deliveryDistance}
             onChange={(e) =>
               onDeliveryDistanceChange(parseInt(e.target.value, 10))
             }
           />{" "}
-          m
         </div>
         <div className="field-wrapper">
           <label id="number-of-items-label" htmlFor="number-of-items">
@@ -98,6 +98,7 @@ export default function Calculator({
             aria-labelledby="number-of-items-label"
             id="number-of-items"
             type="number"
+            min="0"
             value={numberOfItems}
             onChange={(e) =>
               onNumberOfItemsChange(parseInt(e.target.value, 10))
@@ -128,6 +129,6 @@ export default function Calculator({
           <p data-testid="fee">Delivery price: {deliveryFee} &euro;</p>
         </div>
       </form>
-    </>
+    </div>
   );
 }
