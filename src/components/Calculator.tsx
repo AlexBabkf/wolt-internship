@@ -119,14 +119,16 @@ export default function Calculator({
           />
         </div>
         <div className="result-wrapper">
-          <button
-            data-testid="calculateButton"
-            aria-live="polite"
-            onClick={calculateDeliveryFee}
-          >
+          <button data-testid="calculateButton" onClick={calculateDeliveryFee}>
             Calculate delivery price
           </button>
-          <p data-testid="fee">Delivery price: {deliveryFee} &euro;</p>
+          <p>
+            Delivery price:{" "}
+            <span data-testid="fee" aria-live="polite">
+              {deliveryFee}
+            </span>{" "}
+            &euro;
+          </p>
         </div>
       </form>
     </div>

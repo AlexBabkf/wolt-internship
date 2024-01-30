@@ -31,11 +31,11 @@ test("Fields respond to user interaction", async () => {
 const cartValueCases = [
   {
     cartValue: 8.2,
-    deliveryPrice: /Delivery price:\s*3.8\s*€/,
+    deliveryPrice: "3.8",
   },
   {
     cartValue: 10,
-    deliveryPrice: /Delivery price:\s*2\s*€/,
+    deliveryPrice: "2",
   },
 ];
 
@@ -64,11 +64,11 @@ test.each(cartValueCases)(
 const distanceCases = [
   {
     deliveryDistance: 999,
-    deliveryPrice: /Delivery price:\s*2\s*€/,
+    deliveryPrice: "2",
   },
   {
     deliveryDistance: 1001,
-    deliveryPrice: /Delivery price:\s*3\s*€/,
+    deliveryPrice: "3",
   },
 ];
 
@@ -95,15 +95,15 @@ test.each(distanceCases)("Delivery distance is calculated", (distanceCase) => {
 const numberOfItemsCases = [
   {
     numberOfItems: 4,
-    deliveryPrice: /Delivery price:\s*2\s*€/,
+    deliveryPrice: "2",
   },
   {
     numberOfItems: 5,
-    deliveryPrice: /Delivery price:\s*2.5\s*€/,
+    deliveryPrice: "2.5",
   },
   {
     numberOfItems: 13,
-    deliveryPrice: /Delivery price:\s*7.7\s*€/,
+    deliveryPrice: "7.7",
   },
 ];
 
@@ -144,10 +144,9 @@ test("Delivery is free when cart value is 200 and more", () => {
   );
 
   fireEvent.click(screen.getByTestId("calculateButton"));
-  const deliveryPrice = /Delivery price:\s*0\s*€/;
 
   const element = screen.getByTestId("fee");
-  expect(element.textContent).toMatch(deliveryPrice);
+  expect(element.textContent).toMatch("0");
 });
 
 test("Rush hour is calculated", () => {
@@ -165,10 +164,9 @@ test("Rush hour is calculated", () => {
   );
 
   fireEvent.click(screen.getByTestId("calculateButton"));
-  const deliveryPrice = /Delivery price:\s*2.4\s*€/;
 
   const element = screen.getByTestId("fee");
-  expect(element.textContent).toMatch(deliveryPrice);
+  expect(element.textContent).toMatch("2.4");
 });
 
 test("Fee does not exceed 15 euros", () => {
@@ -186,8 +184,7 @@ test("Fee does not exceed 15 euros", () => {
   );
 
   fireEvent.click(screen.getByTestId("calculateButton"));
-  const deliveryPrice = /Delivery price:\s*15\s*€/;
 
   const element = screen.getByTestId("fee");
-  expect(element.textContent).toMatch(deliveryPrice);
+  expect(element.textContent).toMatch("15");
 });
