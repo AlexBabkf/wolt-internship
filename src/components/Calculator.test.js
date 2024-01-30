@@ -1,10 +1,32 @@
-import { render, fireEvent } from "@testing-library/react";
+import { render, fireEvent, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import Calculator from "./Calculator";
 
 const onCartValueChangeMock = jest.fn();
 const onDeliveryDistanceChangeMock = jest.fn();
 const onNumberOfItemsChangeMock = jest.fn();
 const onOrderTimeChangeMock = jest.fn();
+
+test("Fields respond to user interaction", async () => {
+  render(
+    <Calculator
+      onCartValueChange={onCartValueChangeMock}
+      onDeliveryDistanceChange={onDeliveryDistanceChangeMock}
+      onNumberOfItemsChange={onNumberOfItemsChangeMock}
+      onOrderTimeChange={onOrderTimeChangeMock}
+    />
+  );
+
+  await userEvent.type(screen.getByTestId("cartValue"), "1");
+  await userEvent.type(screen.getByTestId("deliveryDistance"), "2");
+  await userEvent.type(screen.getByTestId("numberOfItems"), "3");
+  await userEvent.type(screen.getByTestId("orderTime"), "2024-02-02T17:28");
+
+  expect(onCartValueChangeMock).toHaveBeenCalledWith(1);
+  expect(onDeliveryDistanceChangeMock).toHaveBeenCalledWith(2);
+  expect(onNumberOfItemsChangeMock).toHaveBeenCalledWith(3);
+  expect(onOrderTimeChangeMock).toHaveBeenCalledWith("2024-02-02T17:28");
+});
 
 const cartValueCases = [
   {
@@ -33,9 +55,8 @@ test.each(cartValueCases)(
       />
     );
 
-    fireEvent.click(screen.getByText("Calculate delivery price"));
-
-    const element = document.querySelector("p");
+    fireEvent.click(screen.getByTestId("calculateButton"));
+    const element = screen.getByTestId("fee");
     expect(element.textContent).toMatch(cartValueCase.deliveryPrice);
   }
 );
@@ -65,9 +86,9 @@ test.each(distanceCases)("Delivery distance is calculated", (distanceCase) => {
     />
   );
 
-  fireEvent.click(screen.getByText("Calculate delivery price"));
+  fireEvent.click(screen.getByTestId("calculateButton"));
 
-  const element = document.querySelector("p");
+  const element = screen.getByTestId("fee");
   expect(element.textContent).toMatch(distanceCase.deliveryPrice);
 });
 
@@ -102,9 +123,8 @@ test.each(numberOfItemsCases)(
       />
     );
 
-    fireEvent.click(screen.getByText("Calculate delivery price"));
-
-    const element = document.querySelector("p");
+    fireEvent.click(screen.getByTestId("calculateButton"));
+    const element = screen.getByTestId("fee");
     expect(element.textContent).toMatch(numberOfItemsCase.deliveryPrice);
   }
 );
@@ -123,10 +143,10 @@ test("Delivery is free when cart value is 200 and more", () => {
     />
   );
 
-  fireEvent.click(screen.getByText("Calculate delivery price"));
+  fireEvent.click(screen.getByTestId("calculateButton"));
   const deliveryPrice = /Delivery price:\s*0\s*€/;
 
-  const element = document.querySelector("p");
+  const element = screen.getByTestId("fee");
   expect(element.textContent).toMatch(deliveryPrice);
 });
 
@@ -144,10 +164,10 @@ test("Rush hour is calculated", () => {
     />
   );
 
-  fireEvent.click(screen.getByText("Calculate delivery price"));
+  fireEvent.click(screen.getByTestId("calculateButton"));
   const deliveryPrice = /Delivery price:\s*2.4\s*€/;
 
-  const element = document.querySelector("p");
+  const element = screen.getByTestId("fee");
   expect(element.textContent).toMatch(deliveryPrice);
 });
 
@@ -165,9 +185,9 @@ test("Fee does not exceed 15 euros", () => {
     />
   );
 
-  fireEvent.click(screen.getByText("Calculate delivery price"));
+  fireEvent.click(screen.getByTestId("calculateButton"));
   const deliveryPrice = /Delivery price:\s*15\s*€/;
 
-  const element = document.querySelector("p");
+  const element = screen.getByTestId("fee");
   expect(element.textContent).toMatch(deliveryPrice);
 });

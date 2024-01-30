@@ -64,10 +64,10 @@ export default function Calculator({
             Cart Value:
           </label>
           <input
+            data-testid="cartValue"
             aria-labelledby="cart-value-label"
             id="cart-value"
             type="number"
-            placeholder="0"
             value={cartValue}
             onChange={(e) => onCartValueChange(parseFloat(e.target.value))}
           />{" "}
@@ -78,10 +78,10 @@ export default function Calculator({
             Delivery Distance:
           </label>
           <input
+            data-testid="deliveryDistance"
             aria-labelledby="delivery-distance-label"
             id="delivery-distance"
             type="number"
-            placeholder="0"
             value={deliveryDistance}
             onChange={(e) =>
               onDeliveryDistanceChange(parseInt(e.target.value, 10))
@@ -94,10 +94,10 @@ export default function Calculator({
             Number of Items:
           </label>
           <input
+            data-testid="numberOfItems"
             aria-labelledby="number-of-items-label"
             id="number-of-items"
             type="number"
-            placeholder="0"
             value={numberOfItems}
             onChange={(e) =>
               onNumberOfItemsChange(parseInt(e.target.value, 10))
@@ -109,6 +109,7 @@ export default function Calculator({
             Order Time:
           </label>
           <input
+            data-testid="orderTime"
             aria-labelledby="order-time-label"
             id="order-time"
             type="datetime-local"
@@ -117,10 +118,14 @@ export default function Calculator({
           />
         </div>
         <div>
-          <button aria-live="polite" onClick={calculateDeliveryFee}>
+          <button
+            data-testid="calculateButton"
+            aria-live="polite"
+            onClick={calculateDeliveryFee}
+          >
             Calculate delivery price
           </button>
-          <p>Delivery price: {deliveryFee} &euro;</p>
+          <p data-testid="fee">Delivery price: {deliveryFee} &euro;</p>
         </div>
       </form>
     </>
