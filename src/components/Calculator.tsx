@@ -69,7 +69,7 @@ export default function Calculator({
             id="cart-value"
             type="number"
             min="0"
-            value={cartValue}
+            placeholder="0"
             onChange={(e) => onCartValueChange(parseFloat(e.target.value))}
           />{" "}
         </div>
@@ -83,7 +83,7 @@ export default function Calculator({
             id="delivery-distance"
             type="number"
             min="0"
-            value={deliveryDistance}
+            placeholder="0"
             onChange={(e) =>
               onDeliveryDistanceChange(parseInt(e.target.value, 10))
             }
@@ -99,7 +99,7 @@ export default function Calculator({
             id="number-of-items"
             type="number"
             min="0"
-            value={numberOfItems}
+            placeholder="0"
             onChange={(e) =>
               onNumberOfItemsChange(parseInt(e.target.value, 10))
             }
