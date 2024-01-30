@@ -118,7 +118,7 @@ export default function Calculator({
             onChange={(e) => onOrderTimeChange(e.target.value)}
           />
         </div>
-        <div>
+        <div className="result-wrapper">
           <button
             data-testid="calculateButton"
             aria-live="polite"
