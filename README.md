@@ -9,13 +9,17 @@ This is a Delivery Fee Calculator that calculates the delivery fees according to
 - The delivery is free (0€) when the cart value is equal or more than 200€.
 - During the Friday rush, 3 - 7 PM, the delivery fee (the total fee including possible surcharges) will be multiplied by 1.2x.
 
-App was initialised with `create-next-app`
-It is developed with React and Typescript.
-Tests are included.
+App was initialised with `create-next-app` for convenience.\
+Developed with `React` and `Typescript`.\
+`Jest` used for testing.\
 
-## Getting Started
+Calculator component is created in `src/components/Calculator.jsx`\
+Rendered in `src/pages/index.tsx`\
+Tests exist in `src/components/Calculator.test.jsx`
 
-### Install dependencies:
+## Local development
+
+### Install the dependencies:
 
 ```bash
 npm i
@@ -39,9 +43,33 @@ pnpm dev
 bun dev
 ```
 
+### Create the production build
+
+```bash
+npm run build
+# or
+yarn build
+# or
+pnpm build
+# or
+bun build
+```
+
+### Start the production build
+
+```bash
+npm run start
+# or
+yarn start
+# or
+pnpm start
+# or
+bun start
+```
+
 Open [http://localhost:3000](http://localhost:3000) with your browser.
 
-### Run the tests:
+### Run the tests in watch mode:
 
 ```bash
 npm test
